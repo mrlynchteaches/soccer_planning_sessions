@@ -10,59 +10,116 @@
 <body>
 <div class="app">
   <header class="top card">
-    <div class="brand"><div class="ball"></div><div><h1>Soccer Practice Planner</h1><p>Static, local-storage based coaching board</p></div></div>
+    <div class="brand"><div class="ball"></div><div><h1>Soccer Practice Planner</h1><p>Static, local-storage coaching board</p></div></div>
     <div class="topActions">
-      <label>Session Title<input id="title" placeholder="e.g. Build Out vs High Press" /></label>
+      <label>Session Title<input id="title" placeholder="e.g. Breaking Pressure in the Middle Third" /></label>
       <button id="themeBtn">🌙 / ☀️</button>
     </div>
   </header>
 
   <main class="grid">
     <aside class="side card">
-      <section><h2>Build</h2>
+      <section>
+        <h2>Build</h2>
         <label>Formation<select id="formation"></select></label>
+        <label>Field Third / Phase
+          <select id="phaseZone">
+            <option value="full">Full Field</option>
+            <option value="defensive">Defensive Third</option>
+            <option value="middle">Middle Third</option>
+            <option value="offensive">Offensive Third</option>
+          </select>
+        </label>
         <div class="row"><button id="oneTeam">Autofill 1 Team</button><button id="twoTeams" class="alt">Autofill 2 Teams</button></div>
         <label>Team Color<input id="teamColor" type="color" value="#5ec4ff"></label>
         <label>Opponent Color<input id="oppColor" type="color" value="#ff7c7c"></label>
       </section>
 
-      <section><h2>Objects</h2>
-        <div class="toolGrid">
-          <button data-add="player-circle">Circle</button><button data-add="player-triangle">Triangle</button>
-          <button data-add="goalkeeper">GK</button><button data-add="ball">Ball</button>
-          <button data-add="cone">Cone</button><button data-add="disc">Disc</button>
-          <button data-add="pole">Pole</button><button data-add="mannequin">Mannequin</button>
-          <button data-add="mini-goal">Mini Goal</button><button data-add="full-goal">Full Goal</button>
-          <button data-add="text">Text</button><button data-add="highlight">Highlight</button>
+      <section>
+        <h2>Objects</h2>
+        <label>Object Type
+          <select id="objectType">
+            <option value="player-circle">Circle Player</option>
+            <option value="player-triangle">Triangle Player</option>
+            <option value="goalkeeper">Goalkeeper</option>
+            <option value="ball">Ball</option>
+            <option value="cone">Cone</option>
+            <option value="disc">Disc</option>
+            <option value="pole">Pole</option>
+            <option value="mannequin">Mannequin</option>
+            <option value="mini-goal">Mini Goal</option>
+            <option value="full-goal">Full Goal</option>
+            <option value="text">Text Label</option>
+            <option value="highlight">Highlight Area</option>
+          </select>
+        </label>
+        <div class="row"><button id="addObjectBtn">Add Selected Object</button></div>
+      </section>
+
+      <section>
+        <h2>Movement</h2>
+        <label>Line Type
+          <select id="lineType">
+            <option value="straight">Straight Arrow</option>
+            <option value="curved">Curved Arrow</option>
+            <option value="dashed">Dashed Arrow</option>
+            <option value="pass">Pass</option>
+            <option value="dribble">Dribble</option>
+            <option value="press">Press</option>
+          </select>
+        </label>
+        <div class="row wrap">
+          <button id="drawBtn">Draw Annotation</button>
+          <button id="linkMoveBtn" class="alt">Assign Move to Selected Player</button>
+          <button id="cancelDraw" class="alt">Cancel</button>
+        </div>
+        <div class="row wrap topGap">
+          <button id="animateBtn">Animate Linked Moves</button>
+          <button id="resetAnimBtn" class="alt">Reset Animated Players</button>
         </div>
       </section>
 
-      <section><h2>Movement</h2>
-        <label>Line Type<select id="lineType">
-          <option value="straight">Straight Arrow</option>
-          <option value="curved">Curved Arrow</option>
-          <option value="dashed">Dashed Arrow</option>
-          <option value="pass">Pass</option>
-          <option value="dribble">Dribble</option>
-          <option value="press">Press</option>
-        </select></label>
-        <div class="row"><button id="drawBtn">Draw</button><button id="cancelDraw" class="alt">Cancel</button></div>
+      <section>
+        <h2>Zones / Zoom</h2>
+        <p class="muted">Correct field grid: left to right = 3 thirds, top to bottom = 5 lanes.</p>
+        <div class="row wrap">
+          <button id="zoneBtn">Zone Select</button>
+          <button id="zoomBtn">Zoom</button>
+          <button id="cropBtn">Edit From Selection</button>
+          <button id="fullBtn" class="alt">Full Field</button>
+        </div>
       </section>
 
-      <section><h2>Zones / Zoom</h2>
-        <p class="muted">5 vertical lanes running the length of the field and 3 horizontal bands running the width.</p>
-        <div class="row wrap"><button id="zoneBtn">Zone Select</button><button id="zoomBtn">Zoom</button><button id="cropBtn">Edit From Selection</button><button id="fullBtn" class="alt">Full Field</button></div>
-      </section>
-
-      <section><h2>Selected Item</h2>
+      <section>
+        <h2>Selected Object</h2>
         <label>Color<input id="selColor" type="color" value="#5ec4ff"></label>
         <label>Label / Number<input id="selLabel" placeholder="10 or Coaching Point"></label>
-        <label>Size<input id="selSize" type="range" min="10" max="70" value="24"></label>
+        <label>Size<input id="selSize" type="range" min="10" max="90" value="24"></label>
         <label>Rotation<input id="selRot" type="range" min="0" max="360" value="0"></label>
-        <div class="row wrap"><button id="applySel">Apply</button><button id="dupBtn" class="alt">Duplicate</button><button id="frontBtn" class="alt">Front</button><button id="backBtn" class="alt">Back</button><button id="lockBtn" class="alt">Lock</button><button id="delBtn" class="danger">Delete</button></div>
+        <div class="row wrap">
+          <button id="applySel">Apply</button>
+          <button id="dupBtn" class="alt">Duplicate</button>
+          <button id="frontBtn" class="alt">Front</button>
+          <button id="backBtn" class="alt">Back</button>
+          <button id="lockBtn" class="alt">Lock</button>
+          <button id="delBtn" class="danger">Delete</button>
+        </div>
       </section>
 
-      <section><h2>Library</h2>
+      <section>
+        <h2>Selected Arrow / Move</h2>
+        <label>Thickness<input id="pathWidth" type="range" min="2" max="16" value="5"></label>
+        <label>Arrow Head Size<input id="pathHead" type="range" min="6" max="28" value="10"></label>
+        <label>Path Rotation<input id="pathRot" type="range" min="-180" max="180" value="0"></label>
+        <label>Curve / Bend<input id="pathBend" type="range" min="-120" max="120" value="36"></label>
+        <div class="row wrap">
+          <button id="applyPath">Apply Path</button>
+          <button id="reversePath" class="alt">Reverse</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Library</h2>
         <div class="row wrap"><button id="undoBtn">Undo</button><button id="redoBtn" class="alt">Redo</button><button id="clearBtn" class="danger">Clear Field</button></div>
         <label>Save Session As<input id="saveName" placeholder="Library name"></label>
         <div class="row wrap"><button id="saveBtn">Save</button><button id="newBtn" class="alt">New</button><button id="expJson" class="alt">Export JSON</button><label class="upload alt">Import JSON<input id="impJson" type="file" accept="application/json"></label></div>
@@ -73,11 +130,28 @@
 
     <section class="center card">
       <div class="status"><span id="modeBadge" class="pill">Mode: select</span><span id="viewBadge" class="pill alt">View: full field</span><span id="autoBadge" class="pill ghost">Autosave idle</span><div class="sp"></div><button id="playBtn">▶ Play Slides</button><button id="stopBtn" class="alt">■ Stop</button></div>
-      <div class="stage"><svg id="svg" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grass" patternUnits="userSpaceOnUse" width="80" height="80"><rect width="80" height="80" fill="#0a8e1f"/><rect width="40" height="80" fill="#109d24"/></pattern><marker id="arrowHead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs><rect width="1200" height="800" fill="url(#grass)"/><g id="base"></g><g id="zones"></g><g id="high"></g><g id="paths"></g><g id="objs"></g><g id="sel"></g></svg></div>
+      <div class="stage">
+        <svg id="svg" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="grass" patternUnits="userSpaceOnUse" width="80" height="80">
+              <rect width="80" height="80" fill="#0a8e1f" />
+              <rect width="40" height="80" fill="#109d24" />
+            </pattern>
+          </defs>
+          <rect width="1200" height="800" fill="url(#grass)" />
+          <g id="base"></g>
+          <g id="zones"></g>
+          <g id="high"></g>
+          <g id="paths"></g>
+          <g id="objs"></g>
+          <g id="sel"></g>
+        </svg>
+      </div>
     </section>
 
     <aside class="side card right">
-      <section><h2>Slide Builder</h2>
+      <section>
+        <h2>Slide Builder</h2>
         <label>Session Overview<textarea id="overview" rows="4" placeholder="Whole-session overview"></textarea></label>
         <label>Coach Explanation<textarea id="notes" rows="5" placeholder="Slide explanation"></textarea></label>
         <div class="row wrap"><button id="addSlide">Add Current View</button><button id="updSlide" class="alt">Update Selected</button></div>
